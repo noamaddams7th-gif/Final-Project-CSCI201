@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Build & Debug Medici",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/medici",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "terminal": "integrated",
+            "preLaunchTask": "build medici"
+        }
+    ]
+}

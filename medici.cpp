@@ -373,7 +373,7 @@ public:
 class GameBoard {
 public:
     // Max level per commodity track is 7 (indices 0..7, gold frame = 0)
-    static constexpr int MAX_LEVEL = 7;
+    enum { MAX_LEVEL = 7 };
 
     // Bonus florins for top 3 levels (levels 5,6,7 from bottom → indices 5,6,7)
     // The board shows bonuses 5, 10, 20 at the top three levels
@@ -395,7 +395,7 @@ public:
             std::cout << std::left << std::setw(6) << commodityName(c) << ": ";
             for (const auto& p : players) {
                 // Track position = cumulative count of this commodity, capped at MAX_LEVEL
-                int pos = std::min(p.getCommodityCount(c), MAX_LEVEL);
+                int pos = std::min(p.getCommodityCount(c), (int)MAX_LEVEL);
                 std::cout << p.getName() << "=" << pos << "  ";
             }
             std::cout << "\n";
@@ -600,7 +600,7 @@ public:
 
         // Presenter draws 1-3 cards
         std::vector<Card> group;
-        int maxDraw = std::min(3, deck.remaining());
+        int maxDraw = std::min(3, (int)deck.remaining());
         for (int drawn = 1; drawn <= maxDraw; ++drawn) {
             auto newCard = deck.draw(1);
             if (newCard.empty()) break;
@@ -789,8 +789,8 @@ public:
             // Collect positions (cumulative counts, capped)
             std::vector<int> positions(numPlayers);
             for (int pi = 0; pi < numPlayers; ++pi)
-                positions[pi] = std::min(players[pi].getCommodityCount(c),
-                                         GameBoard::MAX_LEVEL);
+                positions[pi] = std::min((int)players[pi].getCommodityCount(c),
+                                         (int)GameBoard::MAX_LEVEL);
 
             auto ranking = rankDescending(positions);
 
